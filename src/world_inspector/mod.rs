@@ -358,7 +358,7 @@ impl<'a> WorldUIContext<'a> {
 
                 let result = unsafe {
                     try_display(
-                        &self.world,
+                        self.world,
                         entity,
                         entity_location,
                         component_info,
@@ -439,7 +439,7 @@ unsafe fn display_by_inspectable_registry(
         get_component_and_ticks(world, component_info.id(), entity, location).unwrap();
     let ticks = { &mut *ticks };
 
-    let changed = inspect_callback(ptr, ui, &context);
+    let changed = inspect_callback(ptr, ui, context);
 
     if changed {
         ticks.set_changed(world.read_change_tick());
@@ -478,7 +478,7 @@ fn display_by_reflection(
     Ok(crate::reflect::ui_for_reflect(
         &mut *reflected,
         ui,
-        &context,
+        context,
     ))
 }
 
